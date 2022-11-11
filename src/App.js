@@ -21,6 +21,7 @@ const App = () => {
 
   // filter countries list based on the input search field
   const countriesToDisplay = countries.filter(country => country.name.includes(searchCountry.trim()))
+  console.log(countriesToDisplay);
   
 
   return (
