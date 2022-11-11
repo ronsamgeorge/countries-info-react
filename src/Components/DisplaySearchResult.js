@@ -7,7 +7,8 @@ const DisplaySearchResult = ({countriesToDisplay}) => {
         </div>
       )
     }
-  
+    
+    // Display result of country when query has exactly one match    
     if (countriesToDisplay.length === 1){
         return (
             <div>
