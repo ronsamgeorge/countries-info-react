@@ -1,32 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import DisplaySearchResult from "./Components/DisplaySearchResult";
 
-const DisplaySearchResult = (props) => {
-  if (props.countriesToDisplay.length > 10) {
-    return (
-      <div>
-        <p>Too many matches, narrow down the searh filter</p>        
-      </div>
-    )
-  }
+const App = () => { 
+  const [countries, setCountries] = useState([]);           // save the fetch results on countries
+  const [searchCountry, setSearchCountry] = useState('');   // save the search filter query
 
-  return(
-    <ul>
-      {props.countriesToDisplay.map(country => <li key={country.name}>{country.name}</li>)}
-    </ul>
-    
-  )
-}
-
-const App = () => {
-
-  const [countries, setCountries] = useState([]);
-  const [searchCountry, setSearchCountry] = useState('');
-
-  const updateSearchCountry = (event) => {
+  const updateSearchCountry = (event) => {                  // updates search Countries onChange of input
     setSearchCountry(event.target.value);
   }
 
+  // fetch list of countries through REST Countries API
   useEffect(() => {
     axios
       .get('https://restcountries.com/v2/all')
@@ -35,8 +19,10 @@ const App = () => {
       })
   },[]);
 
+  // filter countries list based on the input search field
   const countriesToDisplay = countries.filter(country => country.name.includes(searchCountry.trim()))
-  console.log(countriesToDisplay);
+  
+
   return (
     <div>
       <h1>Search Country</h1>
